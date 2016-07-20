@@ -8,7 +8,8 @@
 
 (defn make-system [conf]
   (component/system-map
-    :transactions (transactions/use-in-memory calendar/current-date)
+    :transactions (transactions/use-in-memory
+                    calendar/current-date)
     :printer (printer/use-console-printer)
     :account (component/using
                (account/make)
@@ -18,5 +19,3 @@
 (defn main []
   (component/start
     (make-system {})))
-
-

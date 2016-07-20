@@ -4,16 +4,16 @@
     [bank-account.statement-printer :as statement-printer]))
 
 (defprotocol AccountOperations
-  (deposit [this amount])
-  (withdraw [this amount])
+  (deposit! [this amount])
+  (withdraw! [this amount])
   (print-statement [this]))
 
-(defrecord Account [transactions printer]
+(defrecord Account [c transactions printer]
   AccountOperations
-  (deposit [this amount]
-    (register! (:transactions this) amount))
+  (deposit! [_ amount]
+    (register! transactions amount))
 
-  (withdraw [_ amount]
+  (withdraw! [_ amount]
     (register! transactions (- amount)))
 
   (print-statement [_]
