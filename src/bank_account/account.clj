@@ -8,7 +8,7 @@
   (withdraw! [this amount])
   (print-statement [this]))
 
-(defrecord Account [c transactions printer]
+(defrecord Account [transactions printer]
   AccountOperations
   (deposit! [_ amount]
     (register! transactions amount))

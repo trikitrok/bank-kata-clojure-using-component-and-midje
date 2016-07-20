@@ -15,7 +15,7 @@
   (register! [this amount])
   (statement-lines [this]))
 
-(defrecord InMemoryTransactions [current-date-fn]
+(defrecord InMemoryTransactions [current-date-fn transactions]
   component/Lifecycle
   (start [this]
     (println ";; Starting InMemoryTransactions")
@@ -23,7 +23,7 @@
 
   (stop [this]
     (println ";; Stopping InMemoryTransactions")
-    this)
+    (assoc this :transactions nil))
 
   Transactions
   (register! [this amount]
