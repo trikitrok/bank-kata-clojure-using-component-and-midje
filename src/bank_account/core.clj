@@ -16,6 +16,16 @@
                {:transactions :transactions
                 :printer :printer})))
 
-(defn main []
-  (component/start
-    (make-system {})))
+(defn withdraw! [account amount]
+  (account/withdraw! account amount))
+
+(defn deposit! [account amount]
+  (account/deposit! account amount))
+
+(defn print-statement [account]
+  (account/print-statement account))
+
+(defn start-account []
+  (-> (make-system {})
+      component/start
+      :account))
