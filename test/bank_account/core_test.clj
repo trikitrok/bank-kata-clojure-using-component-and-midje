@@ -11,7 +11,8 @@
 (facts
   "printing an account statement"
 
-  (let [config {:printer {:header "date || credit || debit || balance"}}
+  (let [config {:printer {:header "date || credit || debit || balance"}
+                :formatter {:date-format "dd/MM/yyyy"}}
         make-dates (partial make-dates "dd/MM/yyyy")
         system (assoc (make-system config)
                       :transactions

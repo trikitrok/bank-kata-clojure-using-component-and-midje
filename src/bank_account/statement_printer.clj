@@ -11,17 +11,14 @@
 (defn- print-lines [lines]
   (doall (map println lines)))
 
-(defn- format-and-print-lines [lines]
-  (->> lines
-       (map formatting/format-statement-line)
-       print-lines))
-
-(defrecord ConsoleStatementPrinter [config]
+(defrecord ConsoleStatementPrinter [config formatter]
   StatementPrinter
   (print-statement [_ statement-lines]
     (print-header (-> config :header))
-    (format-and-print-lines statement-lines)))
+    (->> statement-lines
+         (map (partial formatting/format-statement-line formatter))
+         print-lines)))
 
 (defn use-console-printer [config]
   (println ";; creating ConsoleStatementPrinter")
-  (->ConsoleStatementPrinter config))
+  (map->ConsoleStatementPrinter {:config config}))
