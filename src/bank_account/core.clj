@@ -28,9 +28,3 @@
 
 (defn print-statement [account]
   (account/print-statement account))
-
-(defn start-account []
-  (-> (make-system {:printer {:header "date || credit || debit || balance"}
-                    :formatter {:date-format "dd/MM/yyyy"}})
-      component/start
-      :account))
