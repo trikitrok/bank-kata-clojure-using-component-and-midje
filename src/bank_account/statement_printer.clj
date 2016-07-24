@@ -5,8 +5,8 @@
 (defprotocol StatementPrinter
   (print-statement [this statement-lines]))
 
-(defn- print-header []
-  (println "date || credit || debit || balance"))
+(defn- print-header [header]
+  (println header))
 
 (defn- print-lines [lines]
   (doall (map println lines)))
@@ -16,12 +16,12 @@
        (map formatting/format-statement-line)
        print-lines))
 
-(defrecord ConsoleStatementPrinter []
+(defrecord ConsoleStatementPrinter [config]
   StatementPrinter
   (print-statement [_ statement-lines]
-    (print-header)
+    (print-header (-> config :header))
     (format-and-print-lines statement-lines)))
 
-(defn use-console-printer []
+(defn use-console-printer [config]
   (println ";; creating ConsoleStatementPrinter")
-  (->ConsoleStatementPrinter))
+  (->ConsoleStatementPrinter config))

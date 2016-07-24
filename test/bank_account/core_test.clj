@@ -11,8 +11,9 @@
 (facts
   "printing an account statement"
 
-  (let [make-dates (partial make-dates "dd/MM/yyyy")
-        system (assoc (make-system {})
+  (let [config {:printer {:header "date || credit || debit || balance"}}
+        make-dates (partial make-dates "dd/MM/yyyy")
+        system (assoc (make-system config)
                       :transactions
                       (transactions/use-in-memory #(date-fn)))
         account (-> system component/start :account)]

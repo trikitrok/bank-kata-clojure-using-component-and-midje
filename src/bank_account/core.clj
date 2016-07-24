@@ -10,7 +10,7 @@
   (component/system-map
     :transactions (transactions/use-in-memory
                     calendar/current-date)
-    :printer (printer/use-console-printer)
+    :printer (printer/use-console-printer (:printer conf))
     :account (component/using
                (account/make)
                {:transactions :transactions
@@ -26,6 +26,6 @@
   (account/print-statement account))
 
 (defn start-account []
-  (-> (make-system {})
+  (-> (make-system {:printer {:header "date || credit || debit || balance"}})
       component/start
       :account))
