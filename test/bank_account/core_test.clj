@@ -14,7 +14,7 @@
   (let [make-dates (partial make-dates "dd/MM/yyyy")
         system (assoc (make-system {})
                       :transactions
-                      (transactions/use-in-memory (fn [] (date-fn))))
+                      (transactions/use-in-memory #(date-fn)))
         account (-> system component/start :account)]
 
     (do
