@@ -6,8 +6,7 @@
 (defprotocol StatementLineFormatter
   (format-date [this date])
   (pad-num [this num])
-  (format-amount [this amount])
-  (format-balance [this balance]))
+  (line-format [this amount]))
 
 (defrecord NiceStatementLineFormatter [config]
   component/Lifecycle
@@ -21,24 +20,22 @@
     this)
 
   StatementLineFormatter
-  (format-date [this date]
-    (f/unparse (:date-formatter this) date))
+  (format-date [{:keys [date-formatter]} date]
+    (f/unparse date-formatter date))
 
   (pad-num [_ num]
     (str num ".00"))
 
-  (format-balance [_ balance]
-    (pad-num _ balance))
-
-  (format-amount [_ amount]
-    (if (< amount 0)
-      (str " || || " (pad-num _ amount) " || ")
-      (str " || " (pad-num _ amount) " || || "))))
+  (line-format [_ amount]
+    (if (neg? amount)
+      "%s || || %s || %s"
+      "%s || %s || || %s")))
 
 (defn use-nice-statement-line-formatter [config]
   (->NiceStatementLineFormatter config))
 
 (defn format-statement-line [formatter {:keys [amount balance date]}]
-  (str (format-date formatter date)
-       (format-amount formatter amount)
-       (format-balance formatter balance)))
+  (format (line-format formatter amount)
+          (format-date formatter date)
+          (pad-num formatter amount)
+          (pad-num formatter balance)))
