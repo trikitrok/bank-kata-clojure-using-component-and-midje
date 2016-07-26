@@ -1,26 +1,18 @@
 (ns bank-account.statement-printer
   (:require
-    [bank-account.statement-line-formatting :as formatting]
-    [com.stuartsierra.component :as component]))
+    [bank-account.statement-format :as formatting]))
 
 (defprotocol StatementPrinter
   (print-statement [this statement-lines]))
 
-(defn- print-header [header]
-  (println header))
+(defn- print [format lines]
+  (->> (formatting/order-lines format lines)
+       (map (partial formatting/format-statement-line format))
+       (map println)
+       doall))
 
-(defn- print-lines [lines]
-  (doall (map println lines)))
-
-(defrecord ConsoleStatementPrinter [config formatter]
+(defrecord ConsoleStatementPrinter [format]
   StatementPrinter
   (print-statement [_ statement-lines]
-    (print-header (-> config :header))
-    (->> (reverse statement-lines)
-         (map (partial formatting/format-statement-line formatter))
-         print-lines)))
-
-(defn console-printer [config formatter]
-  (component/using
-    (map->ConsoleStatementPrinter {:config config})
-    {:formatter formatter}))
+    (println (formatting/header format))
+    (print format statement-lines)))

@@ -1,15 +1,17 @@
-(ns bank-account.statement-line-formatting
+(ns bank-account.statement-format
   (:require
     [clj-time.format :as f]
     [com.stuartsierra.component :as component]
     [bank-account.amounts-formatting :refer [format-amount]]))
 
-(defprotocol StatementLineFormatter
+(defprotocol StatementFormat
+  (order-lines [this statement-lines])
+  (header [this])
   (format-date [this date])
   (line-format [this amount])
   (format-statement-line [this statement-line]))
 
-(defrecord NiceStatementLineFormatter [config]
+(defrecord NiceReverseStatementFormat [config]
   component/Lifecycle
   (start [this]
     (println ";; Starting NiceStatementLineFormatter")
@@ -20,7 +22,7 @@
     (println ";; Stopping NiceStatementLineFormatter")
     this)
 
-  StatementLineFormatter
+  StatementFormat
   (format-date [{:keys [date-formatter]} date]
     (f/unparse date-formatter date))
 
@@ -35,7 +37,13 @@
       (format (line-format this amount)
             (format-date this date)
             (format-amount (Math/abs amount) num-decimals)
-            (format-amount balance num-decimals)))))
+            (format-amount balance num-decimals))))
 
-(defn nice-formatter [config]
-  (->NiceStatementLineFormatter config))
+  (header [_]
+    (-> config :header))
+
+  (order-lines [_ statement-lines]
+    (reverse statement-lines)))
+
+(defn nice-reverse-format [config]
+  (->NiceReverseStatementFormat config))
