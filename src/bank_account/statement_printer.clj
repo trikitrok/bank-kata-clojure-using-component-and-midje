@@ -3,7 +3,7 @@
     [bank-account.statement-format :as formatting]))
 
 (defprotocol StatementPrinter
-  (print-statement [this statement-lines]))
+  (print-statement [this balanced-transactions]))
 
 (defn- print [format lines]
   (->> (formatting/order-lines format lines)
@@ -13,6 +13,6 @@
 
 (defrecord ConsoleStatementPrinter [format]
   StatementPrinter
-  (print-statement [_ statement-lines]
+  (print-statement [_ balanced-transactions]
     (println (formatting/header format))
-    (print format statement-lines)))
+    (print format balanced-transactions)))

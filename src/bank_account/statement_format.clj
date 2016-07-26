@@ -5,7 +5,7 @@
     [bank-account.amounts-formatting :refer [format-amount]]))
 
 (defprotocol StatementFormat
-  (order-lines [this statement-lines])
+  (order-lines [this balanced-transactions])
   (header [this])
   (format-date [this date])
   (line-format [this amount])
@@ -42,8 +42,8 @@
   (header [_]
     (-> config :header))
 
-  (order-lines [_ statement-lines]
-    (reverse statement-lines)))
+  (order-lines [_ balanced-transactions]
+    (reverse balanced-transactions)))
 
 (defn nice-reverse-format [config]
   (->NiceReverseStatementFormat config))

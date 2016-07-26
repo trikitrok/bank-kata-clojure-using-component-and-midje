@@ -1,6 +1,6 @@
 (ns bank-account.account
   (:require
-    [bank-account.transactions :refer [register! statement-lines]]
+    [bank-account.transactions :refer [register! balanced-transactions]]
     [bank-account.statement-printer :as statement-printer]
     [com.stuartsierra.component :as component]))
 
@@ -18,5 +18,5 @@
     (register! transactions (- amount)))
 
   (print-statement [_]
-    (->> (statement-lines transactions)
+    (->> (balanced-transactions transactions)
          (statement-printer/print-statement printer))))

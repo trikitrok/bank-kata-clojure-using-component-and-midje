@@ -9,17 +9,17 @@
     [com.stuartsierra.component :as component]))
 
 (unfinished register!)
-(unfinished statement-lines)
+(unfinished balanced-transactions)
 (unfinished print-statement)
 
 (defrecord-openly FakeTransactions []
   TransactionsOperations
   (register! [this amount])
-  (statement-lines [this]))
+  (balanced-transactions [this]))
 
 (defrecord-openly FakePrinter []
   StatementPrinter
-  (print-statement [this statement-lines]))
+  (print-statement [this balanced-transactions]))
 
 (defn new-account [transactions printer]
   (-> (factories/account-component-map)
@@ -59,5 +59,5 @@
       (account/print-statement an-account) => irrelevant
 
       (provided
-        (statement-lines fake-transactions) => ...some-statement-lines... :times 1
-        (print-statement fake-printer ...some-statement-lines...) => irrelevant :times 1))))
+        (balanced-transactions fake-transactions) => ...some-balanced-transactions... :times 1
+        (print-statement fake-printer ...some-balanced-transactions...) => irrelevant :times 1))))

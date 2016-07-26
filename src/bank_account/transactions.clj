@@ -2,18 +2,18 @@
   (:require
     [com.stuartsierra.component :as component]))
 
-(defn- transactions->statement-lines [transactions]
+(defn- add-balance [transactions]
   (second
     (reduce
-      (fn [[accumulated-balance statement-lines] transaction]
+      (fn [[accumulated-balance balanced-transaction] transaction]
         (let [balance (+ accumulated-balance (:amount transaction))]
-          [balance (conj statement-lines (assoc transaction :balance balance))]))
+          [balance (conj balanced-transaction (assoc transaction :balance balance))]))
       [0 []]
       transactions)))
 
 (defprotocol TransactionsOperations
   (register! [this amount])
-  (statement-lines [this]))
+  (balanced-transactions [this]))
 
 (defrecord InMemoryTransactions [current-date-fn transactions]
   component/Lifecycle
@@ -34,8 +34,8 @@
              conj
              {:amount amount :date (current-date-fn)})))
 
-  (statement-lines [this]
-    (transactions->statement-lines
+  (balanced-transactions [this]
+    (add-balance
       @(:transactions this))))
 
 (defn in-memory [current-date-fn]
