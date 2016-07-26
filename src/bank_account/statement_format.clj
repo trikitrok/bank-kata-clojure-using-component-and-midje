@@ -5,12 +5,23 @@
     [bank-account.amounts-formatting :refer [format-amount]]))
 
 (defprotocol StatementFormat
-  (order-lines [this balanced-transactions])
   (header [this])
-  (format-date [this date])
-  (line-format [this amount])
-  (format-statement-line [this statement-line])
   (format-statement-lines [this statement-lines]))
+
+(defn- format-date [date-formatter date]
+  (f/unparse date-formatter date))
+
+(defn- nice-reverse-line-format [separator amount]
+  (if (neg? amount)
+    (str "%s " separator " " separator " %s " separator " %s")
+    (str "%s " separator " %s " separator " " separator " %s")))
+
+(defn- nice-reverse-format-statement-line [date-formatter config {:keys [amount balance date]}]
+  (let [num-decimals (:num-decimals config)]
+    (format (nice-reverse-line-format (:separator config) amount)
+            (format-date date-formatter date)
+            (format-amount (Math/abs amount) num-decimals)
+            (format-amount balance num-decimals))))
 
 (defrecord NiceReverseStatementFormat [config]
   component/Lifecycle
@@ -24,31 +35,13 @@
     (assoc this :date-formatter nil))
 
   StatementFormat
-  (format-date [{:keys [date-formatter]} date]
-    (f/unparse date-formatter date))
-
-  (line-format [_ amount]
-    (let [separator (:separator config)]
-      (if (neg? amount)
-        (str "%s " separator " " separator " %s " separator " %s")
-        (str "%s " separator " %s " separator " " separator " %s"))))
-
-  (format-statement-line [this {:keys [amount balance date]}]
-    (let [num-decimals (:num-decimals config)]
-      (format (line-format this amount)
-              (format-date this date)
-              (format-amount (Math/abs amount) num-decimals)
-              (format-amount balance num-decimals))))
-
   (header [_]
     (-> config :header))
 
-  (order-lines [_ balanced-transactions]
-    (reverse balanced-transactions))
-
-  (format-statement-lines [this statement-lines]
-    (->> (order-lines this statement-lines)
-         (map (partial format-statement-line this)))))
+  (format-statement-lines [{:keys [date-formatter]} statement-lines]
+    (let [format-line (partial nice-reverse-format-statement-line date-formatter config)]
+      (->> (reverse statement-lines)
+           (map format-line)))))
 
 (defn nice-reverse-format [config]
   (->NiceReverseStatementFormat config))
