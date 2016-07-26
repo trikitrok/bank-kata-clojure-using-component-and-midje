@@ -13,9 +13,12 @@
     {:transactions :transactions
      :printer :printer}))
 
+(defn in-memory-transactions [current-date-fn]
+  (transactions/in-memory current-date-fn))
+
 (defn make-system [conf]
   (component/system-map
-    :transactions (transactions/in-memory calendar/current-date)
+    :transactions (in-memory-transactions calendar/current-date)
     :formatter (statement-line-formatting/nice-formatter (:formatter conf))
     :printer (printer/console-printer (:printer conf) :formatter)
     :account (account-component-map)))
