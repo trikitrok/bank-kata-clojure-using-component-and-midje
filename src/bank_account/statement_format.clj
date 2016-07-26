@@ -9,7 +9,9 @@
   (header [this])
   (format-date [this date])
   (line-format [this amount])
-  (format-statement-line [this statement-line]))
+  (format-statement-line [this statement-line])
+  (format-statement-lines [this statement-lines])
+  )
 
 (defrecord NiceReverseStatementFormat [config]
   component/Lifecycle
@@ -43,7 +45,11 @@
     (-> config :header))
 
   (order-lines [_ balanced-transactions]
-    (reverse balanced-transactions)))
+    (reverse balanced-transactions))
+
+  (format-statement-lines [this statement-lines]
+    (->> (order-lines this statement-lines)
+         (map (partial format-statement-line this)))))
 
 (defn nice-reverse-format [config]
   (->NiceReverseStatementFormat config))
