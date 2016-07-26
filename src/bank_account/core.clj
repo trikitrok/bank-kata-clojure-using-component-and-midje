@@ -11,13 +11,8 @@
   (component/system-map
     :transactions (transactions/in-memory calendar/current-date)
     :formatter (statement-line-formatting/nice-formatter (:formatter conf))
-    :printer (component/using
-               (printer/console-printer (:printer conf))
-               {:formatter :formatter})
-    :account (component/using
-               (account/make)
-               {:transactions :transactions
-                :printer :printer})))
+    :printer (printer/console-printer (:printer conf) :formatter)
+    :account (account/new :transactions :printer)))
 
 (defn withdraw! [account amount]
   (account/withdraw! account amount))

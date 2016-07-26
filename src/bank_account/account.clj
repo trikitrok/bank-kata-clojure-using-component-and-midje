@@ -1,7 +1,8 @@
 (ns bank-account.account
   (:require
     [bank-account.transactions :refer [register! statement-lines]]
-    [bank-account.statement-printer :as statement-printer]))
+    [bank-account.statement-printer :as statement-printer]
+    [com.stuartsierra.component :as component]))
 
 (defprotocol AccountOperations
   (deposit! [this amount])
@@ -20,6 +21,8 @@
     (->> (statement-lines transactions)
          (statement-printer/print-statement printer))))
 
-(defn make []
-  (println ";; creating Account")
-  (map->Account {}))
+(defn new [transactions printer]
+  (component/using
+    (map->Account {})
+    {:transactions transactions
+     :printer printer}))

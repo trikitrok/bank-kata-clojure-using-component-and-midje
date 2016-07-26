@@ -1,6 +1,7 @@
 (ns bank-account.statement-printer
   (:require
-    [bank-account.statement-line-formatting :as formatting]))
+    [bank-account.statement-line-formatting :as formatting]
+    [com.stuartsierra.component :as component]))
 
 (defprotocol StatementPrinter
   (print-statement [this statement-lines]))
@@ -19,6 +20,7 @@
          (map (partial formatting/format-statement-line formatter))
          print-lines)))
 
-(defn console-printer [config]
-  (println ";; creating ConsoleStatementPrinter")
-  (map->ConsoleStatementPrinter {:config config}))
+(defn console-printer [config formatter]
+  (component/using
+    (map->ConsoleStatementPrinter {:config config})
+    {:formatter formatter}))
