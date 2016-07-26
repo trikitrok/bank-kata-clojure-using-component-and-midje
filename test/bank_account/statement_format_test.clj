@@ -3,7 +3,6 @@
     [midje.sweet :refer :all]
     [midje.open-protocols :refer [defrecord-openly]]
     [bank-account.statement-format :as statement-format]
-    [bank-account.test-helpers :refer [make-date]]
     [com.stuartsierra.component :as component]
     [bank-account.test-helpers :refer [make-date]]))
 
