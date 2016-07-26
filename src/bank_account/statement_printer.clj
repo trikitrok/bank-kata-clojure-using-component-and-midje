@@ -19,6 +19,6 @@
          (map (partial formatting/format-statement-line formatter))
          print-lines)))
 
-(defn use-console-printer [config]
+(defn console-printer [config]
   (println ";; creating ConsoleStatementPrinter")
   (map->ConsoleStatementPrinter {:config config}))

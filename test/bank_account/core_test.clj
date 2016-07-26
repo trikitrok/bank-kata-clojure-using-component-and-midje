@@ -17,7 +17,7 @@
         dates (partial make-dates "dd/MM/yyyy")
         system (assoc (make-system config)
                       :transactions
-                      (transactions/use-in-memory #(date-fn)))
+                      (transactions/in-memory #(date-fn)))
         account (-> system component/start :account)]
 
     (do

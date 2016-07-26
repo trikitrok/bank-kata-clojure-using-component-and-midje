@@ -38,7 +38,7 @@
     (transactions->statement-lines
       @(:transactions this))))
 
-(defn use-in-memory [current-date-fn]
+(defn in-memory [current-date-fn]
   (println ";; creating InMemoryTransactions")
   (map->InMemoryTransactions
     {:current-date-fn current-date-fn}))

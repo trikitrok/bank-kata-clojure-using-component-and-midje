@@ -9,11 +9,10 @@
 
 (defn make-system [conf]
   (component/system-map
-    :transactions (transactions/use-in-memory
-                    calendar/current-date)
-    :formatter (statement-line-formatting/use-nice-statement-line-formatter (:formatter conf))
+    :transactions (transactions/in-memory calendar/current-date)
+    :formatter (statement-line-formatting/nice-formatter (:formatter conf))
     :printer (component/using
-               (printer/use-console-printer (:printer conf))
+               (printer/console-printer (:printer conf))
                {:formatter :formatter})
     :account (component/using
                (account/make)
