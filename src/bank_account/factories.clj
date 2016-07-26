@@ -5,7 +5,7 @@
     [bank-account.transactions :as transactions]
     [bank-account.calendar :as calendar]
     [bank-account.account :as account]
-    [bank-account.statement-format :as statement-line-formatting]))
+    [bank-account.statement-format :as statement-format]))
 
 (defn account-component-map []
   (component/using
@@ -24,6 +24,6 @@
 (defn make-system [conf]
   (component/system-map
     :transactions (in-memory-transactions calendar/current-date)
-    :format (statement-line-formatting/nice-reverse-format (:format conf))
+    :format (statement-format/nice-reverse-format (:format conf))
     :printer (console-printer)
     :account (account-component-map)))
