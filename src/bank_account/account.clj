@@ -20,9 +20,3 @@
   (print-statement [_]
     (->> (statement-lines transactions)
          (statement-printer/print-statement printer))))
-
-(defn new [transactions printer]
-  (component/using
-    (map->Account {})
-    {:transactions transactions
-     :printer printer}))

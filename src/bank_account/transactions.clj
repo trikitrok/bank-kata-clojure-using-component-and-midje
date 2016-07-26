@@ -11,7 +11,7 @@
       [0 []]
       transactions)))
 
-(defprotocol Transactions
+(defprotocol TransactionsOperations
   (register! [this amount])
   (statement-lines [this]))
 
@@ -25,7 +25,7 @@
     (println ";; Stopping InMemoryTransactions")
     (assoc this :transactions nil))
 
-  Transactions
+  TransactionsOperations
   (register! [this amount]
     (assoc
       this
