@@ -10,8 +10,7 @@
   (format-date [this date])
   (line-format [this amount])
   (format-statement-line [this statement-line])
-  (format-statement-lines [this statement-lines])
-  )
+  (format-statement-lines [this statement-lines]))
 
 (defrecord NiceReverseStatementFormat [config]
   component/Lifecycle

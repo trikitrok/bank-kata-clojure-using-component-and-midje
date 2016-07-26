@@ -8,8 +8,8 @@
 (defn- print-lines [lines]
   (doall (map println lines)))
 
-(defrecord ConsoleStatementPrinter [format]
+(defrecord ConsoleStatementPrinter [print-fn format]
   StatementPrinter
   (print-statement [_ balanced-transactions]
-    (println (formatting/header format))
+    ((or print-fn println) (formatting/header format))
     (print-lines (formatting/format-statement-lines format balanced-transactions))))
