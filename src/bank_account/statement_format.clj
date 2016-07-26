@@ -35,9 +35,9 @@
   (format-statement-line [this {:keys [amount balance date]}]
     (let [num-decimals (:num-decimals config)]
       (format (line-format this amount)
-            (format-date this date)
-            (format-amount (Math/abs amount) num-decimals)
-            (format-amount balance num-decimals))))
+              (format-date this date)
+              (format-amount (Math/abs amount) num-decimals)
+              (format-amount balance num-decimals))))
 
   (header [_]
     (-> config :header))

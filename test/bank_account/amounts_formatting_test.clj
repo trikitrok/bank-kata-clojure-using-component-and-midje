@@ -9,5 +9,3 @@
   (format-amount 4.0 3) => "4.000"
   (format-amount 4.60 4) => "4.6000"
   (format-amount 4.05 2) => "4.05")
-
-

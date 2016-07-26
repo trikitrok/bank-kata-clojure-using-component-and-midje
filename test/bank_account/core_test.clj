@@ -13,9 +13,9 @@
   "printing an account statement"
 
   (let [config {:format {:date-format "dd/MM/yyyy"
-                            :separator "||"
-                            :num-decimals 2
-                            :header "date || credit || debit || balance"}}
+                         :separator "||"
+                         :num-decimals 2
+                         :header "date || credit || debit || balance"}}
         dates (partial make-dates "dd/MM/yyyy")
         account-system (assoc (factories/make-system config)
                               :transactions

@@ -37,4 +37,6 @@
             (assoc second-transaction :balance 2500)
             (assoc third-transaction :balance 2000)]
 
-        (provided (date-fn) =streams=> [(:date first-transaction) (:date second-transaction) (:date third-transaction)])))))
+        (provided (date-fn) =streams=> [(:date first-transaction)
+                                        (:date second-transaction)
+                                        (:date third-transaction)])))))
