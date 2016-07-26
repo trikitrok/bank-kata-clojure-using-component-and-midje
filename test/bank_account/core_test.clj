@@ -13,7 +13,8 @@
 
   (let [config {:printer {:header "date || credit || debit || balance"}
                 :formatter {:date-format "dd/MM/yyyy"
-                            :separator "||"}}
+                            :separator "||"
+                            :num-decimals 2}}
         dates (partial make-dates "dd/MM/yyyy")
         system (assoc (make-system config)
                       :transactions
