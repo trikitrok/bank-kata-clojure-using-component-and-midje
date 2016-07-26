@@ -14,13 +14,13 @@
 (defrecord NiceReverseStatementFormat [config]
   component/Lifecycle
   (start [this]
-    (println ";; Starting NiceStatementLineFormatter")
+    (println ";; Starting NiceReverseStatementFormat")
     (assoc this :date-formatter
            (f/formatter (:date-format config))))
 
   (stop [this]
-    (println ";; Stopping NiceStatementLineFormatter")
-    this)
+    (println ";; Stopping NiceReverseStatementFormat")
+    (assoc this :date-formatter nil))
 
   StatementFormat
   (format-date [{:keys [date-formatter]} date]
