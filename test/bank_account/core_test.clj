@@ -12,21 +12,22 @@
   "printing an account statement"
 
   (let [config {:printer {:header "date || credit || debit || balance"}
-                :formatter {:date-format "dd/MM/yyyy"}}
-        make-dates (partial make-dates "dd/MM/yyyy")
+                :formatter {:date-format "dd/MM/yyyy"
+                            :separator "||"}}
+        dates (partial make-dates "dd/MM/yyyy")
         system (assoc (make-system config)
                       :transactions
                       (transactions/use-in-memory #(date-fn)))
         account (-> system component/start :account)]
 
     (do
+      (deposit! account 1000)
       (deposit! account 2000)
-      (deposit! account 500)
-      (withdraw! account 1000)
+      (withdraw! account 500)
       (output-lines
         print-statement account)) => ["date || credit || debit || balance"
-                                      "21/07/2016 || 2000.00 || || 2000.00"
-                                      "22/07/2016 || 500.00 || || 2500.00"
-                                      "23/07/2016 || || -1000.00 || 1500.00"]
+                                      "14/01/2012 || || 500.00 || 2500.00"
+                                      "13/01/2012 || 2000.00 || || 3000.00"
+                                      "10/01/2012 || 1000.00 || || 1000.00"]
 
-    (provided (date-fn) =streams=> (make-dates ["21/07/2016" "22/07/2016" "23/07/2016"]))))
+    (provided (date-fn) =streams=> (dates ["10/01/2012" "13/01/2012" "14/01/2012"]))))

@@ -15,7 +15,7 @@
   StatementPrinter
   (print-statement [_ statement-lines]
     (print-header (-> config :header))
-    (->> statement-lines
+    (->> (reverse statement-lines)
          (map (partial formatting/format-statement-line formatter))
          print-lines)))
 

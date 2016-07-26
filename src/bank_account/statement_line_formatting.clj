@@ -27,9 +27,10 @@
     (str num ".00"))
 
   (line-format [_ amount]
-    (if (neg? amount)
-      "%s || || %s || %s"
-      "%s || %s || || %s")))
+    (let [separator (:separator config)]
+      (if (neg? amount)
+        (str "%s " separator " " separator " %s " separator " %s")
+        (str "%s " separator " %s " separator " " separator " %s")))))
 
 (defn use-nice-statement-line-formatter [config]
   (->NiceStatementLineFormatter config))
@@ -37,5 +38,5 @@
 (defn format-statement-line [formatter {:keys [amount balance date]}]
   (format (line-format formatter amount)
           (format-date formatter date)
-          (pad-num formatter amount)
+          (pad-num formatter (Math/abs amount))
           (pad-num formatter balance)))
