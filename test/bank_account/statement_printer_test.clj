@@ -40,7 +40,9 @@
     (let [fake-format (->FakeFormat)
           a-printer (new-console-printer fake-format)]
 
-      (printer/print-statement a-printer ...some-list...) => irrelevant
+      (printer/print-statement a-printer ...some-balanced-transactions...) => irrelevant
 
       (provided
-        (format-statement-lines fake-format ...some-list...) => ...some-other-list... :times 1))))
+        (format-statement-lines
+          fake-format
+          ...some-balanced-transactions...) => ...some-formatted-statement-lines-to-print... :times 1))))
