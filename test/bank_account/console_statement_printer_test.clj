@@ -1,4 +1,4 @@
-(ns bank-account.statement-printer-test
+(ns bank-account.console-statement-printer-test
   (:require
     [midje.sweet :refer :all]
     [midje.open-protocols :refer [defrecord-openly]]
