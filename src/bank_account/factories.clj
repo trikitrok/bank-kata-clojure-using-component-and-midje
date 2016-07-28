@@ -1,9 +1,9 @@
 (ns bank-account.factories
   (:require
     [com.stuartsierra.component :as component]
-    [bank-account.statement-printer :as printer]
     [bank-account.calendar :as calendar]
     [bank-account.account :as account]
+    [bank-account.statement-printer-types.console-statement-printer :as console-statement-printer]
     [bank-account.transactions-repository-types.in-memory-transactions :as in-memory-transactions]
     [bank-account.statement-format-types.nice-reverse-statement-format :as nice-reverse-statement-format]))
 
@@ -18,7 +18,7 @@
 
 (defn console-printer []
   (component/using
-    (printer/map->ConsoleStatementPrinter {})
+    (console-statement-printer/make)
     {:format :format}))
 
 (defn nice-reverse-statement-format [config]
