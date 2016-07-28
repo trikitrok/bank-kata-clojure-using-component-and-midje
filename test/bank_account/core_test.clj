@@ -4,7 +4,6 @@
     [bank-account.core :refer :all]
     [bank-account.test-helpers :refer [output-lines make-dates]]
     [com.stuartsierra.component :as component]
-    [bank-account.transactions :as transactions]
     [bank-account.factories :as factories]))
 
 (unfinished date-fn)
@@ -19,7 +18,7 @@
         dates (partial make-dates "dd/MM/yyyy")
         account-system (assoc (factories/make-system config)
                               :transactions
-                              (transactions/in-memory #(date-fn)))
+                              (factories/in-memory-transactions #(date-fn)))
         account (-> account-system component/start :account)]
 
     (do

@@ -2,9 +2,9 @@
   (:require
     [com.stuartsierra.component :as component]
     [bank-account.statement-printer :as printer]
-    [bank-account.transactions :as transactions]
     [bank-account.calendar :as calendar]
     [bank-account.account :as account]
+    [bank-account.transactions-types.in-memory-transactions :as in-memory-transactions]
     [bank-account.statement-formats-types.nice-reverse-statement-format :as nice-reverse-statement-format]))
 
 (defn account-component-map []
@@ -14,7 +14,7 @@
      :printer :printer}))
 
 (defn in-memory-transactions [current-date-fn]
-  (transactions/in-memory current-date-fn))
+  (in-memory-transactions/make current-date-fn))
 
 (defn console-printer []
   (component/using
