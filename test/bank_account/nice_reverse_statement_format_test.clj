@@ -5,7 +5,6 @@
     [com.stuartsierra.component :as component]
     [bank-account.factories :as factories]
     [bank-account.statement-formatting.statement-format :as statement-format]
-
     [bank-account.test-helpers :refer [make-date]]))
 
 (defn- new-nice-reverse-format [config]
