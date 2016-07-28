@@ -49,25 +49,24 @@
       (provided
         (format-statement-lines
           fake-format
-          ...some-balanced-transactions...) => ...some-formatted-statement-lines-to-print... :times 1)))
+          ...some-balanced-transactions...) => ...some-formatted-statement-lines... :times 1)))
 
   (fact
     "it prints the header and formatted lines"
 
     (let [some-header "some-header"
-          some-formatted-statement-lines-to-print ["statement-line-1" "statement-line-2"]
+          some-formatted-statement-lines ["statement-line-1" "statement-line-2"]
+          expected-output-lines (cons some-header some-formatted-statement-lines)
           fake-format (->FakeFormat)
           a-printer (new-console-printer fake-format println)]
 
       (output-lines
         printer/print-statement
-        a-printer ...some-balanced-transactions...) => ["some-header"
-                                                        "statement-line-1"
-                                                        "statement-line-2"]
+        a-printer ...some-balanced-transactions...) => expected-output-lines
 
       (provided
         (header fake-format) => some-header
 
         (format-statement-lines
           fake-format
-          ...some-balanced-transactions...) => some-formatted-statement-lines-to-print))))
+          ...some-balanced-transactions...) => some-formatted-statement-lines))))
