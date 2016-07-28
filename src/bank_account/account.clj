@@ -1,21 +1,17 @@
 (ns bank-account.account
   (:require
-    [bank-account.transactions-repository.transactions :refer [register! balanced-transactions]]
-    [bank-account.statement-printing.statement-printer :as statement-printer]))
+    [bank-account.statement-printing.statement-printer :as statement-printer]
+    [bank-account.transactions.transactions-operations :as transactions-operations]))
 
-(defprotocol AccountOperations
-  (deposit! [this amount])
-  (withdraw! [this amount])
-  (print-statement [this]))
+(defrecord Account [transactions printer])
 
-(defrecord Account [transactions printer]
-  AccountOperations
-  (deposit! [_ amount]
-    (register! transactions amount))
+(defn withdraw! [{:keys [transactions]} amount]
+  (transactions-operations/register! transactions (- amount)))
 
-  (withdraw! [_ amount]
-    (register! transactions (- amount)))
+(defn deposit! [{:keys [transactions]} amount]
+  (transactions-operations/register! transactions amount))
 
-  (print-statement [_]
-    (->> (balanced-transactions transactions)
-         (statement-printer/print-statement printer))))
+(defn print-statement [{:keys [printer transactions]}]
+  (statement-printer/print-statement
+    printer
+    (transactions-operations/balanced-transactions transactions)))

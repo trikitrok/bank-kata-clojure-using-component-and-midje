@@ -5,20 +5,20 @@
     [com.stuartsierra.component :as component]
     [bank-account.account :as account]
     [bank-account.factories :as factories]
-    [bank-account.transactions-repository.transactions :refer [TransactionsOperations]]
-    [bank-account.statement-printing.statement-printer :refer [StatementPrinter]]))
+    [bank-account.transactions.transactions-operations :as transactions-operations]
+    [bank-account.statement-printing.statement-printer :as statement-printer]))
 
 (unfinished register!)
 (unfinished balanced-transactions)
 (unfinished print-statement)
 
 (defrecord-openly FakeTransactions []
-  TransactionsOperations
+  transactions-operations/TransactionsOperations
   (register! [this amount])
   (balanced-transactions [this]))
 
 (defrecord-openly FakePrinter []
-  StatementPrinter
+  statement-printer/StatementPrinter
   (print-statement [this balanced-transactions]))
 
 (defn new-account [transactions printer]

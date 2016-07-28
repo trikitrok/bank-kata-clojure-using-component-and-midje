@@ -1,4 +1,4 @@
-(ns bank-account.transactions-repository.transactions)
+(ns bank-account.transactions.transactions-operations)
 
 (defn add-balances [transactions]
   (second
