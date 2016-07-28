@@ -2,13 +2,13 @@
   (:require
     [midje.sweet :refer :all]
     [midje.open-protocols :refer [defrecord-openly]]
-    [bank-account.statement-formats-types.nice-reverse-statement-format :as nice-reverse-statement-format]
+    [bank-account.factories :as factories]
     [bank-account.statement-format :as statement-format]
     [com.stuartsierra.component :as component]
     [bank-account.test-helpers :refer [make-date]]))
 
 (defn- new-nice-reverse-format [config]
-  (component/start (nice-reverse-statement-format/make config)))
+  (component/start (factories/nice-reverse-statement-format config)))
 
 (fact
   "about formatting statements"

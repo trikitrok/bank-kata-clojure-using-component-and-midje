@@ -1,4 +1,4 @@
-(ns bank-account.statement-formats-types.nice-reverse-statement-format
+(ns bank-account.statement-format-types.nice-reverse-statement-format
   (:require
     [clj-time.format :as f]
     [com.stuartsierra.component :as component]

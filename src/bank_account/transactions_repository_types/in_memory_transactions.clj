@@ -1,4 +1,4 @@
-(ns bank-account.transactions-types.in-memory-transactions
+(ns bank-account.transactions-repository-types.in-memory-transactions
   (:require
     [com.stuartsierra.component :as component]
     [bank-account.transactions :as transactions]))
