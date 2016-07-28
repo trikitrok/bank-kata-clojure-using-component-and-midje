@@ -7,9 +7,9 @@
     [bank-account.transactions-operations.in-memory-transactions :as in-memory-transactions]
     [bank-account.statement-formatting.nice-reverse-statement-format :as nice-reverse-statement-format]))
 
-(defn account-component-map []
+(defn account []
   (component/using
-    (account/map->Account {})
+    (account/make)
     {:transactions :transactions
      :printer :printer}))
 
@@ -29,4 +29,4 @@
     :transactions (in-memory-transactions calendar/current-date)
     :format (nice-reverse-statement-format (:format conf))
     :printer (console-printer)
-    :account (account-component-map)))
+    :account (account)))

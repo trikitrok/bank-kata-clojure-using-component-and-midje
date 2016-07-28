@@ -15,3 +15,6 @@
   (statement-printer/print-statement
     printer
     (transactions-operations/balanced-transactions transactions)))
+
+(defn make []
+  (map->Account {}))

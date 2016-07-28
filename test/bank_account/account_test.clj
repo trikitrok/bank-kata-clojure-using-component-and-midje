@@ -22,7 +22,7 @@
   (print-statement [this balanced-transactions]))
 
 (defn new-account [transactions printer]
-  (-> (factories/account-component-map)
+  (-> (factories/account)
       (merge {:transactions transactions
               :printer printer})
       component/start))
