@@ -2,10 +2,10 @@
   (:require
     [midje.sweet :refer :all]
     [midje.open-protocols :refer [defrecord-openly]]
-    [bank-account.statement-format :refer [StatementFormat]]
-    [bank-account.factories :as factories]
     [com.stuartsierra.component :as component]
-    [bank-account.statement-printer :as printer]))
+    [bank-account.factories :as factories]
+    [bank-account.statement-formatting.statement-format :refer [StatementFormat]]
+    [bank-account.statement-printing.statement-printer :as printer]))
 
 (unfinished format-statement-lines)
 (unfinished header)

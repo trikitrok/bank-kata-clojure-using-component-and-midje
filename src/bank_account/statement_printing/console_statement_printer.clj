@@ -1,7 +1,7 @@
-(ns bank-account.statement-printer-types.console-statement-printer
+(ns bank-account.statement-printing.console-statement-printer
   (:require
-    [bank-account.statement-format :as formatting]
-    [bank-account.statement-printer :as printer]))
+    [bank-account.statement-formatting.statement-format :as formatting]
+    [bank-account.statement-printing.statement-printer :as printer]))
 
 (defn- print-lines [lines]
   (doall (map println lines)))

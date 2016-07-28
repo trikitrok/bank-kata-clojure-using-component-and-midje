@@ -1,4 +1,4 @@
-(ns bank-account.statement-format)
+(ns bank-account.statement-formatting.statement-format)
 
 (defprotocol StatementFormat
   (header [this])

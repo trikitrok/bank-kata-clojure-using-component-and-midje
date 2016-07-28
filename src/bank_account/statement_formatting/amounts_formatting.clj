@@ -1,4 +1,4 @@
-(ns bank-account.amounts-formatting
+(ns bank-account.statement-formatting.amounts-formatting
   (:require
     [clojure.string :as string]))
 

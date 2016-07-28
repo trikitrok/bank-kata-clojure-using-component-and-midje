@@ -1,7 +1,7 @@
 (ns bank-account.amounts-formatting-test
   (:require
     [midje.sweet :refer :all]
-    [bank-account.amounts-formatting :refer :all]))
+    [bank-account.statement-formatting.amounts-formatting :refer :all]))
 
 (fact
   "amounts are padded with zeros up to a given number of decimals"

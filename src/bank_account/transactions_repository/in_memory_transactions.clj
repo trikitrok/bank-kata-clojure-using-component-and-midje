@@ -1,7 +1,7 @@
-(ns bank-account.transactions-repository-types.in-memory-transactions
+(ns bank-account.transactions-repository.in-memory-transactions
   (:require
     [com.stuartsierra.component :as component]
-    [bank-account.transactions :as transactions]))
+    [bank-account.transactions-repository.transactions :as transactions]))
 
 (defrecord InMemoryTransactions [current-date-fn transactions]
   component/Lifecycle
@@ -27,5 +27,4 @@
 
 (defn make [current-date-fn]
   (println ";; creating InMemoryTransactions")
-  (map->InMemoryTransactions
-    {:current-date-fn current-date-fn}))
+  (map->InMemoryTransactions {:current-date-fn current-date-fn}))

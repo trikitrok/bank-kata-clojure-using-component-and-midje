@@ -1,9 +1,9 @@
-(ns bank-account.statement-format-types.nice-reverse-statement-format
+(ns bank-account.statement-formatting.nice-reverse-statement-format
   (:require
     [clj-time.format :as f]
     [com.stuartsierra.component :as component]
-    [bank-account.statement-format :as statement-format]
-    [bank-account.amounts-formatting :refer [format-amount]]))
+    [bank-account.statement-formatting.statement-format :as statement-format]
+    [bank-account.statement-formatting.amounts-formatting :refer [format-amount]]))
 
 (defn- format-date [date-formatter date]
   (f/unparse date-formatter date))

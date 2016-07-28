@@ -2,9 +2,9 @@
   (:require
     [midje.sweet :refer :all]
     [midje.open-protocols :refer [defrecord-openly]]
-    [bank-account.transactions :as transactions]
-    [bank-account.factories :as factories]
     [com.stuartsierra.component :as component]
+    [bank-account.factories :as factories]
+    [bank-account.transactions-repository.transactions :as transactions]
     [bank-account.test-helpers :refer [make-date]]))
 
 (unfinished date-fn)

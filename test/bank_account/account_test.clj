@@ -2,11 +2,11 @@
   (:require
     [midje.sweet :refer :all]
     [midje.open-protocols :refer [defrecord-openly]]
-    [bank-account.transactions :refer [TransactionsOperations]]
-    [bank-account.statement-printer :refer [StatementPrinter]]
+    [com.stuartsierra.component :as component]
     [bank-account.account :as account]
     [bank-account.factories :as factories]
-    [com.stuartsierra.component :as component]))
+    [bank-account.transactions-repository.transactions :refer [TransactionsOperations]]
+    [bank-account.statement-printing.statement-printer :refer [StatementPrinter]]))
 
 (unfinished register!)
 (unfinished balanced-transactions)

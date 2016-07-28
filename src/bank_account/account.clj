@@ -1,7 +1,7 @@
 (ns bank-account.account
   (:require
-    [bank-account.transactions :refer [register! balanced-transactions]]
-    [bank-account.statement-printer :as statement-printer]))
+    [bank-account.transactions-repository.transactions :refer [register! balanced-transactions]]
+    [bank-account.statement-printing.statement-printer :as statement-printer]))
 
 (defprotocol AccountOperations
   (deposit! [this amount])
