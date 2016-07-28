@@ -1,4 +1,4 @@
-(ns bank-account.transactions.calendar
+(ns bank-account.transactions-operations.calendar
   (:require
     [clj-time.core :as t]))
 

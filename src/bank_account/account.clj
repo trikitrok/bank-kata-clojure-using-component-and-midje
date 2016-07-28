@@ -1,7 +1,7 @@
 (ns bank-account.account
   (:require
     [bank-account.statement-printing.statement-printer :as statement-printer]
-    [bank-account.transactions.transactions-operations :as transactions-operations]))
+    [bank-account.transactions-operations.transactions-operations :as transactions-operations]))
 
 (defrecord Account [transactions printer])
 

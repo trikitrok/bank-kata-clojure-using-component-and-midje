@@ -1,7 +1,7 @@
-(ns bank-account.transactions.in-memory-transactions
+(ns bank-account.transactions-operations.in-memory-transactions
   (:require
     [com.stuartsierra.component :as component]
-    [bank-account.transactions.transactions-operations :as transactions-operations]))
+    [bank-account.transactions-operations.transactions-operations :as transactions-operations]))
 
 (defrecord InMemoryTransactions [current-date-fn transactions]
   component/Lifecycle

@@ -4,7 +4,7 @@
     [midje.open-protocols :refer [defrecord-openly]]
     [com.stuartsierra.component :as component]
     [bank-account.factories :as factories]
-    [bank-account.transactions.transactions-operations :as transactions]
+    [bank-account.transactions-operations.transactions-operations :as transactions]
     [bank-account.test-helpers :refer [make-date]]))
 
 (unfinished date-fn)

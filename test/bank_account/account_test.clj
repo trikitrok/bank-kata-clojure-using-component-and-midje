@@ -5,7 +5,7 @@
     [com.stuartsierra.component :as component]
     [bank-account.account :as account]
     [bank-account.factories :as factories]
-    [bank-account.transactions.transactions-operations :as transactions-operations]
+    [bank-account.transactions-operations.transactions-operations :as transactions-operations]
     [bank-account.statement-printing.statement-printer :as statement-printer]))
 
 (unfinished register!)
