@@ -1,4 +1,4 @@
-(ns bank-account.transactions-test
+(ns bank-account.in-memory-transactions-test
   (:require
     [midje.sweet :refer :all]
     [midje.open-protocols :refer [defrecord-openly]]
