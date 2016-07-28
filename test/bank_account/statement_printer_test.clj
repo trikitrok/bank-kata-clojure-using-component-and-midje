@@ -5,7 +5,8 @@
     [com.stuartsierra.component :as component]
     [bank-account.factories :as factories]
     [bank-account.statement-formatting.statement-format :refer [StatementFormat]]
-    [bank-account.statement-printing.statement-printer :as printer]))
+    [bank-account.statement-printing.statement-printer :as printer]
+    [bank-account.test-helpers :refer [output-lines]]))
 
 (unfinished format-statement-lines)
 (unfinished header)
@@ -15,10 +16,13 @@
   (header [this])
   (format-statement-lines [this statement-lines]))
 
-(defn new-console-printer [format]
-  (component/start (merge (factories/console-printer)
-                          {:format format
-                           :print-fn identity})))
+(defn new-console-printer
+  ([format print-fn]
+   (component/start (merge (factories/console-printer)
+                           {:format format
+                            :print-fn print-fn})))
+  ([format]
+   (new-console-printer format identity)))
 
 (fact
   "about printing statements"
@@ -45,4 +49,25 @@
       (provided
         (format-statement-lines
           fake-format
-          ...some-balanced-transactions...) => ...some-formatted-statement-lines-to-print... :times 1))))
+          ...some-balanced-transactions...) => ...some-formatted-statement-lines-to-print... :times 1)))
+
+  (fact
+    "it prints the header and formatted lines"
+
+    (let [some-header "some-header"
+          some-formatted-statement-lines-to-print ["statement-line-1" "statement-line-2"]
+          fake-format (->FakeFormat)
+          a-printer (new-console-printer fake-format println)]
+
+      (output-lines
+        printer/print-statement
+        a-printer ...some-balanced-transactions...) => ["some-header"
+                                                        "statement-line-1"
+                                                        "statement-line-2"]
+
+      (provided
+        (header fake-format) => some-header
+
+        (format-statement-lines
+          fake-format
+          ...some-balanced-transactions...) => some-formatted-statement-lines-to-print))))
