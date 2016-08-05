@@ -8,18 +8,13 @@
     [bank-account.statement-formatting.nice-reverse-statement-format :as nice-reverse-statement-format]))
 
 (defn account []
-  (component/using
-    (account/make)
-    {:transactions :transactions
-     :printer :printer}))
+  (component/using (account/make) [:transactions :printer]))
 
 (defn in-memory-transactions [current-date-fn]
   (in-memory-transactions/make current-date-fn))
 
 (defn console-printer []
-  (component/using
-    (console-statement-printer/make)
-    {:format :format}))
+  (component/using (console-statement-printer/make) [:format]))
 
 (defn nice-reverse-statement-format [config]
   (nice-reverse-statement-format/make config))
